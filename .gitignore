@@ -1,0 +1,14 @@
+venv/
+__pycache__/
+logs/
+data/
+*.TXT
+*.env
+*.conf
+*.txt
+*.sh
+*.parquet
+*.csv
+*.xlsx
+*.xls
+*.log

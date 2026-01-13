@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: prefect
+      POSTGRES_PASSWORD: prefect
+      POSTGRES_DB: prefect
+    volumes:
+      - prefect_postgres:/var/lib/postgresql/data
+    networks:
+      - prefect_net
+
+  prefect:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: prefect server start --host 0.0.0.0
+    ports:
+      - "4200:4200"
+    environment:
+      PREFECT_API_DATABASE_CONNECTION_URL: postgresql+asyncpg://prefect:prefect@postgres:5432/prefect
+    depends_on:
+      - postgres
+    networks:
+      - prefect_net
+
+
+  prefect-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: prefect worker start --pool 'ODS_SERVER'
+    environment:
+      PREFECT_API_URL: http://prefect:4200/api
+    depends_on:
+      - prefect
+    networks:
+      - prefect_net
+    volumes:
+      - directory-path:directory-path
+
+volumes:
+  prefect_postgres:
+
+networks:
+  prefect_net:
+    external: true
