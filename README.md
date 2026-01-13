@@ -41,3 +41,4 @@ etl_project/
 - Système de logs détaillé pour le suivi des opérations
 
 
+![Architecture ETL](docs/architecture.png)
