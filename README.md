@@ -9,21 +9,6 @@ Pipeline ETL pour Business Central
 - **Configuration**: Python dotenv, PyHocon
 - **Versioning**: Git
 
-etl_project/
-│
-├── flows/
-│   ├── extract.py          # Ingestion des données sources (CSV, API, SQL)
-│   ├── transform.py        # Nettoyage et enrichissement
-│   ├── load.py             # Chargement vers PostgreSQL (prod)
-│   └── etl_pipeline.py     # Flow Prefect principal
-│
-│
-├── config/
-│   └── settings.py         # Connexions DB, chemins fichiers, params
-│
-├── requirements.txt
-├── README.md
-└── prefect.yaml            # Déploiement (optionnel)
 
 ### Travail technique détaillé
 - Conception et implémentation d'une architecture ETL complète
